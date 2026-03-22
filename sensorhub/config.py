@@ -17,3 +17,5 @@ class Settings(BaseSettings):
     mongo_db: str
 
     api_port: int
+
+    rabbitmq_url: str = "amqp://guest:guest@localhost:5672/"
