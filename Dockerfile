@@ -6,10 +6,10 @@ RUN apt-get update && apt-get install -y build-essential
 RUN pip install uv
 
 COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --no-dev
+RUN uv sync
 
 COPY . .
 
 EXPOSE 8000
 
-CMD ["uv", "run", "uvicorn", "app.api:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "uvicorn", "sensorhub.api:app", "--host", "0.0.0.0", "--port", "8000"]

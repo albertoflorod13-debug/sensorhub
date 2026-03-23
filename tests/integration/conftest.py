@@ -2,23 +2,23 @@ import importlib
 import os
 import subprocess
 import time
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
 
-TEST_ENV = {
-    "MONGO_USERNAME": "root",
-    "MONGO_ROOT_PASSWORD": "testpassword",
-    "MONGO_PORT": "27017",
-    "MONGO_IP": "localhost",
-    "MONGO_DB": "sensorhub",
-    "MINIO_ACCESS_KEY": "minioadmin",
-    "MINIO_SECRET_KEY": "minioadmin",
-    "MINIO_PORT": "9000",
-    "MINIO_IP": "localhost",
-    "MINIO_BUCKET": "sensorhub",
-    "API_PORT": "8000",
-}
+
+def _load_env_file(path: str) -> dict:
+    env = {}
+    for line in Path(path).read_text().splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            k, v = line.split("=", 1)
+            env[k.strip()] = v.strip()
+    return env
+
+
+TEST_ENV = _load_env_file(".env.test")
 
 
 def _wait_for_mongo():

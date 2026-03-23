@@ -15,7 +15,7 @@ cp .env.example .env   # fill in credentials
 docker compose up -d
 ```
 
-API available at `http://localhost:8000` · MinIO console at `http://localhost:9001`
+API available at `http://localhost:8001` · MinIO console at `http://localhost:9001`
 
 ## Endpoints
 

@@ -26,5 +26,9 @@ class MongoDB:
         return self.client_collection.find(query, limit=limit)
 
     def read_sensor_data_by_time(self, start_iso: str, end_iso: str):
-        query = {"timestamp": {"$gte": start_iso, "$lte": end_iso}}
+        from datetime import datetime
+        start = datetime.fromisoformat(start_iso)
+        end = datetime.fromisoformat(end_iso)
+        query = {"timestamp": {"$gte": start, "$lte": end}}
         return self.client_collection.find(query)
+
