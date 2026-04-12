@@ -23,6 +23,10 @@ dependencies = [
     "uvicorn>=0.41.0",
 ]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"
+
 [dependency-groups]
 dev = [
     "httpx>=0.27",

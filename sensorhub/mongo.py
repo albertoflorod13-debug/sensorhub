@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from pymongo import MongoClient
+
 from sensorhub.config import Settings
 from sensorhub.sensor_data import SensorData
 
@@ -18,7 +21,10 @@ class MongoDB:
         self.client_collection = self.client.get_database(self.db).get_collection(self.collection)
 
     def upload_sensor_data(self, sensor_data: SensorData):
-        self.client_collection.insert_one(sensor_data.model_dump())
+        doc = sensor_data.model_dump()
+        if isinstance(doc.get("timestamp"), str):
+            doc["timestamp"] = datetime.fromisoformat(doc["timestamp"])
+        self.client_collection.insert_one(doc)
 
     def read_sensor_data(self, device_id: str | None = None, max_records: int | None = None):
         query = {"device_id": device_id} if device_id else {}
