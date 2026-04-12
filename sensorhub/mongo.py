@@ -32,3 +32,6 @@ class MongoDB:
         query = {"timestamp": {"$gte": start, "$lte": end}}
         return self.client_collection.find(query)
 
+    def insert_many(self, documents: list[dict]) -> int:
+        result = self.client_collection.insert_many(documents)
+        return len(result.inserted_ids)
