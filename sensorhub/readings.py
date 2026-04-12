@@ -33,7 +33,7 @@ def compute_stats(db: MongoDB) -> list[dict]:
             std_temperature=("temperature", "std"),
             avg_humidity=("humidity", "mean"),
             avg_co2=("co2", "mean"),
-            max_co2=("co2", "max"),
+            max_co2=("co2", "min"),
         )
         .reset_index()
     )
